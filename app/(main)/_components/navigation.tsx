@@ -3,7 +3,6 @@
 import { cn } from "@/lib/utils";
 import { ChevronsLeft, MenuIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { document } from "postcss";
 import { ElementRef, MouseEvent, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 
