@@ -29,9 +29,7 @@ export const DocumentList = ({
     setExpanded((prev) => ({ ...prev, [documantId]: !prev[documantId] }));
   };
 
-  const documents = useQuery(api.documents.getSideBar, {
-    parentDocument: parentDocumentId,
-  });
+  const documents = useQuery(api.documents.getSidebar, {});
 
   const onRedirect = (documentId: string) => {
     router.push(`/documents/${documentId}`);
