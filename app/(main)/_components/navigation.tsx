@@ -12,7 +12,7 @@ import {
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
@@ -46,6 +46,8 @@ export const Navigation = () => {
   const navbarRef = useRef<ElementRef<"div">>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
+
+  const documets = useQuery(api.documents.getDocument);
 
   useEffect(() => {
     if (isMobile) {
@@ -158,7 +160,9 @@ export const Navigation = () => {
           <UserItem />
         </div>
         <div className="mt-4">
-          <p>Documnets</p>
+          {documets?.map((documet) => (
+            <p key={documet._id}>{documet.title}</p>
+          ))}
         </div>
         <div
           onMouseDown={handleMouseDown}
