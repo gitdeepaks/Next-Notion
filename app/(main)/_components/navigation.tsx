@@ -25,11 +25,12 @@ import {
 import { UserItem } from "./user-item";
 import { Item } from "./item";
 import { DocumentList } from "./document-llist";
+import { TrashBox } from "./trash-box";
+import { useSearch } from "@/hooks/use-search";
 
 export const Navigation = () => {
-  const router = useRouter();
   // const settings = useSettings();
-  // const search = useSearch();
+  const search = useSearch();
   const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -156,7 +157,7 @@ export const Navigation = () => {
             label="Search"
             icon={Search}
             isSearch={() => {}}
-            onClick={() => {}}
+            onClick={search.isOpen ? search.onClose : search.onOpen}
           />
           <Item label="Search" icon={Settings} onClick={() => {}} />
 
@@ -164,6 +165,18 @@ export const Navigation = () => {
         </div>
         <div className="mt-4">
           <DocumentList />
+          <Item onClick={handleCreate} icon={Plus} label="Add a page" />
+          <Popover>
+            <PopoverTrigger className="w-full mt-4">
+              <Item icon={Trash} label="Trash" />
+            </PopoverTrigger>
+            <PopoverContent
+              className="p-0 w-72"
+              side={isMobile ? "bottom" : "right"}
+            >
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
         </div>
         <div
           onMouseDown={handleMouseDown}
