@@ -27,9 +27,10 @@ import { Item } from "./item";
 import { DocumentList } from "./document-llist";
 import { TrashBox } from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
 
 export const Navigation = () => {
-  // const settings = useSettings();
+  const settings = useSettings();
   const search = useSearch();
   const params = useParams();
   const pathname = usePathname();
@@ -159,7 +160,11 @@ export const Navigation = () => {
             isSearch={() => {}}
             onClick={search.isOpen ? search.onClose : search.onOpen}
           />
-          <Item label="Search" icon={Settings} onClick={() => {}} />
+          <Item
+            label="Settings"
+            icon={Settings}
+            onClick={settings.isOpen ? settings.onClose : settings.onOpen}
+          />
 
           <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
         </div>
