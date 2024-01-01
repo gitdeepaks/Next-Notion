@@ -22,14 +22,17 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
-import { UserItem } from "./user-item";
-import { Item } from "./item";
-import { DocumentList } from "./document-llist";
-import { TrashBox } from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
 
+import { UserItem } from "./user-item";
+import { Item } from "./item";
+import { TrashBox } from "./trash-box";
+import { Navbar } from "./navbar";
+import { DocumentList } from "./document-llist";
+
 export const Navigation = () => {
+  const router = useRouter();
   const settings = useSettings();
   const search = useSearch();
   const params = useParams();
@@ -119,10 +122,9 @@ export const Navigation = () => {
   };
 
   const handleCreate = () => {
-    const promise = create({ title: "Untitled" });
-    //   .then((documentId) =>
-    //   router.push(`/documents/${documentId}`)
-    // );
+    const promise = create({ title: "Untitled" }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
+    );
 
     toast.promise(promise, {
       loading: "Creating a new note...",
@@ -130,6 +132,8 @@ export const Navigation = () => {
       error: "Failed to create a new note.",
     });
   };
+
+  console.log("params.documentId:", params.documentId);
 
   return (
     <>
@@ -153,19 +157,13 @@ export const Navigation = () => {
         </div>
         <div>
           <UserItem />
-
           <Item
             label="Search"
             icon={Search}
             isSearch={() => {}}
-            onClick={search.isOpen ? search.onClose : search.onOpen}
+            onClick={search.onOpen}
           />
-          <Item
-            label="Settings"
-            icon={Settings}
-            onClick={settings.isOpen ? settings.onClose : settings.onOpen}
-          />
-
+          <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
           <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
         </div>
         <div className="mt-4">
@@ -173,7 +171,7 @@ export const Navigation = () => {
           <Item onClick={handleCreate} icon={Plus} label="Add a page" />
           <Popover>
             <PopoverTrigger className="w-full mt-4">
-              <Item icon={Trash} label="Trash" />
+              <Item label="Trash" icon={Trash} />
             </PopoverTrigger>
             <PopoverContent
               className="p-0 w-72"
@@ -197,15 +195,19 @@ export const Navigation = () => {
           isMobile && "left-0 w-full"
         )}
       >
-        <nav className="bg-transparent px-3 py-2 w-full">
-          {isCollapsed && (
-            <MenuIcon
-              className="h-6 w-6 text-muted-foreground"
-              role="button"
-              onClick={resetWidth}
-            />
-          )}
-        </nav>
+        {!!params.documentId ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role="button"
+                className="h-6 w-6 text-muted-foreground"
+              />
+            )}
+          </nav>
+        )}
       </div>
     </>
   );
