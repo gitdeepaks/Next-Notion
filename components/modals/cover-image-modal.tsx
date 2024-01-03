@@ -5,7 +5,6 @@ import { useCoverImage } from "@/hooks/use-cover-image";
 import { SingleImageDropzone } from "../single-image-dropzone";
 import { useState } from "react";
 import { useEdgeStore } from "@/lib/edgestore";
-import { set } from "zod";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
