@@ -27,6 +27,7 @@ import { useSettings } from "@/hooks/use-settings";
 
 import { UserItem } from "./user-item";
 import { Item } from "./item";
+
 import { TrashBox } from "./trash-box";
 import { Navbar } from "./navbar";
 import { DocumentList } from "./document-llist";
@@ -133,8 +134,6 @@ export const Navigation = () => {
     });
   };
 
-  console.log("params.documentId:", params.documentId);
-
   return (
     <>
       <aside
@@ -157,12 +156,7 @@ export const Navigation = () => {
         </div>
         <div>
           <UserItem />
-          <Item
-            label="Search"
-            icon={Search}
-            isSearch={() => {}}
-            onClick={search.onOpen}
-          />
+          <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
           <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
           <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
         </div>
