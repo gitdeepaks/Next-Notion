@@ -2,7 +2,7 @@
 
 Please do check out the [live demo](https://next-notion-henna-one.vercel.app/)!
 
-![](./public/Screenshot%202024-01-04%20at%2011.43.10 AM.png)
+![Cover](./public/Screenshot%202024-01-04%20at%2011.43.10 AM.png)
 
 Key Features:
 
